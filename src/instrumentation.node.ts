@@ -30,13 +30,20 @@ const _metricReader = new PeriodicExportingMetricReader({
   }),
   exportIntervalMillis: 1000,
 });
+const instrumentations = getNodeAutoInstrumentations();
+const pinoInstrumentation = instrumentations.find((inst) =>
+  inst.instrumentationName.includes("pino")
+);
+if (pinoInstrumentation) {
+  console.log("Pino instrumentation found and enabled", pinoInstrumentation);
+}
 const sdk = new NodeSDK({
   metricReader: _metricReader,
   resource: resourceFromAttributes({
     [ATTR_SERVICE_NAME]: "nclip-v2-nextjs",
     [ATTR_SERVICE_VERSION]: "2.0.7",
   }),
-  instrumentations: getNodeAutoInstrumentations(),
+  instrumentations,
   resourceDetectors: getResourceDetectors(),
   spanProcessor: _spanProcessor,
   traceExporter: _traceExporter,
