@@ -1,0 +1,16 @@
+services:
+  frontend:
+    build:
+      context: .
+    environment:
+      - OTEL_EXPORTER_ENDPOINT=http://otel-collector:4318
+    ports:
+      - "3000:3000"
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.135.0
+    command: ["--config=/otel-collector-config.yaml"]
+    ports:
+      - "4318:4318"
+    volumes:
+      - ./otel-collector-config.yaml:/otel-collector-config.yaml
