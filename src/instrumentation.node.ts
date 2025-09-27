@@ -9,7 +9,7 @@ import {
 import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
 import { OTLPMetricExporter } from "@opentelemetry/exporter-metrics-otlp-http";
 import { BatchSpanProcessor } from "@opentelemetry/sdk-trace-base";
-import { BatchLogRecordProcessor } from "@opentelemetry/sdk-logs";
+import { SimpleLogRecordProcessor } from "@opentelemetry/sdk-logs";
 import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-http";
 import { OTLPLogExporter } from "@opentelemetry/exporter-logs-otlp-http";
 import {
@@ -23,7 +23,7 @@ const _spanProcessor = new BatchSpanProcessor(_traceExporter);
 const logExporter = new OTLPLogExporter({
   url: `${process.env.OTEL_EXPORTER_ENDPOINT}/v1/logs`,
 });
-const logRecordProcessor = new BatchLogRecordProcessor(logExporter);
+const logRecordProcessor = new SimpleLogRecordProcessor(logExporter);
 const _metricReader = new PeriodicExportingMetricReader({
   exporter: new OTLPMetricExporter({
     url: `${process.env.OTEL_EXPORTER_ENDPOINT}/v1/metrics`,
