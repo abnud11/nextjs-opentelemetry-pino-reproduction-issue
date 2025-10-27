@@ -8,5 +8,6 @@ COPY postcss.config.mjs postcss.config.mjs
 COPY tsconfig.json tsconfig.json
 COPY public ./public
 COPY src ./src
+COPY .env* .env
 
 CMD [ "npm", "run", "dev" ]

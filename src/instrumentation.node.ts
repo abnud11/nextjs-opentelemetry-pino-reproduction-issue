@@ -40,8 +40,8 @@ if (pinoInstrumentation) {
 const sdk = new NodeSDK({
   metricReader: _metricReader,
   resource: resourceFromAttributes({
-    [ATTR_SERVICE_NAME]: "nclip-v2-nextjs",
-    [ATTR_SERVICE_VERSION]: "2.0.7",
+    [ATTR_SERVICE_NAME]: "nextjs-service",
+    [ATTR_SERVICE_VERSION]: "1.0.0",
   }),
   instrumentations,
   resourceDetectors: getResourceDetectors(),
